@@ -112,16 +112,16 @@ APP_LOOGER = 'pessoa'
 FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
 REST_FRAMEWORK = {
-    'DATE_FORMAT': '%d/%m/%Y',
-    'DATE_INPUT_FORMATS': ('%d/%m/%Y',),
-    'COERCE_DECIMAL_TO_STRING': False,
-    'PAGE_SIZE': 25,
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'fe_core.authentication.FETokenAuthentication',
-    )
+    # 'DATE_FORMAT': '%d/%m/%Y',
+    # 'DATE_INPUT_FORMATS': ('%d/%m/%Y',),
+    # 'COERCE_DECIMAL_TO_STRING': False,
+    # 'PAGE_SIZE': 25,
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'fe_core.authentication.FETokenAuthentication',
+    # )
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
