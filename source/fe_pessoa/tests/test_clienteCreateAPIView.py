@@ -15,6 +15,7 @@ class TestClienteCreateAPIView(TestCase):
         # cache.set(self.token.key, self.token.to_json())
         self.client = APIClient()
         # self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(self.token.key))
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + 'ABC')
 
     def test_post(self):
         response = self.client.post(reverse('clientes-new'))

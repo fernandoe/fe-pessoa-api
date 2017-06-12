@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'oauth2_provider',
 
     'fe_core',
     'fe_pessoa',
@@ -120,8 +121,13 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
     )
+}
+
+OAUTH2_PROVIDER = {
+    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhot:8000',
+    'RESOURCE_SERVER_AUTH_TOKEN': 'ABCDE'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
