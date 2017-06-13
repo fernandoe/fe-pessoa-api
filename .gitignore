@@ -2,4 +2,4 @@
 .cache
 .idea
 source/.coverage
-source/server/db.sqlite3
+source/db.sqlite3

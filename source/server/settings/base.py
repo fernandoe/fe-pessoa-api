@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..')
 
 
 # Quick-start development settings - unsuitable for production
@@ -126,8 +126,8 @@ REST_FRAMEWORK = {
 }
 
 OAUTH2_PROVIDER = {
-    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhot:8000',
-    'RESOURCE_SERVER_AUTH_TOKEN': 'ABCDE'
+    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
+    'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
