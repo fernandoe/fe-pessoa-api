@@ -123,7 +123,7 @@ REST_FRAMEWORK = {
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
     'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',
-    'OAUTH2_VALIDATOR_CLASS': 'fe_pessoa.oauth2_validators.FEOAuth2Validator'
+    'OAUTH2_VALIDATOR_CLASS': 'fe_core.services.auth.oauth2_validators.FEOAuth2Validator'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

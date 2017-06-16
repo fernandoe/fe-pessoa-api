@@ -1,13 +1,12 @@
 # -*- coding:utf-8 -*-
 from django.db import models
 
-from fe_core.models import UUIDModel
-
+from fe_core.models import UUIDModel, Entity
 
 
 class Pessoa(UUIDModel):
     transiente = models.BooleanField(default=True, editable=False)
-    entidade = models.UUIDField()
+    entidade = models.ForeignKey(Entity)
 
     nome = models.CharField(max_length=128, null=True)  # Ou razão social
     cpf = models.CharField(max_length=14, null=True, blank=True)  # Ou CNPJ
