@@ -111,16 +111,11 @@ STATIC_URL = '/static/'
 
 APP_LOOGER = 'pessoa'
 
+AUTH_USER_MODEL = 'fe_core.User'
+
 FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
 REST_FRAMEWORK = {
-    # 'DATE_FORMAT': '%d/%m/%Y',
-    # 'DATE_INPUT_FORMATS': ('%d/%m/%Y',),
-    # 'COERCE_DECIMAL_TO_STRING': False,
-    # 'PAGE_SIZE': 25,
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -131,7 +126,8 @@ REST_FRAMEWORK = {
 
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
-    'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server'
+    'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',
+    'OAUTH2_VALIDATOR_CLASS': 'fe_core.services.auth.oauth2_validators.FEOAuth2Validator'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

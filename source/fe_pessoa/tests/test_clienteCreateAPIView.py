@@ -1,21 +1,18 @@
-from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from fe_core.tests.factories import AccessTokenFactory
 from rest_framework import status
 from rest_framework.test import APIClient
 
-# from fe_core.tests.factories import TokenFactory
 from fe_pessoa.models import Cliente
 
 
 class TestClienteCreateAPIView(TestCase):
 
     def setUp(self):
-        # self.token = TokenFactory()
-        # cache.set(self.token.key, self.token.to_json())
+        self.token = AccessTokenFactory().token
         self.client = APIClient()
-        # self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(self.token.key))
-        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + 'ABC')
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
 
     def test_post(self):
         response = self.client.post(reverse('clientes-new'))

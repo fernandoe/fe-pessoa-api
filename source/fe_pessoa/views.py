@@ -14,7 +14,7 @@ class ClienteCreateAPIView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
-        entidade = self.request.user.entidade
+        entidade = self.request.user.entity
         cliente = Cliente.objects.create(entidade=entidade)
         return Response({'uuid': cliente.uuid}, status=status.HTTP_201_CREATED)
 
@@ -23,7 +23,7 @@ class FornecedorCreateAPIView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
-        entidade = self.request.user.entidade
+        entidade = self.request.user.entity
         fornecedor = Fornecedor.objects.create(entidade=entidade)
         return Response({'uuid': fornecedor.uuid}, status=status.HTTP_201_CREATED)
 
@@ -48,11 +48,11 @@ class ClienteViewSet(viewsets.ModelViewSet):
         return queryset.filter(filtros)
 
     def get_queryset(self):
-        return Cliente.objects.filter(entidade=self.request.user.entidade)
+        return Cliente.objects.filter(entidade=self.request.user.entity)
 
     def perform_create(self, serializer):
         serializer.save(
-            entidade=self.request.user.entidade,
+            entidade=self.request.user.entity,
             transiente=False
         )
 
@@ -80,11 +80,11 @@ class FornecedorViewSet(viewsets.ModelViewSet):
         return queryset.filter(filtros)
 
     def get_queryset(self):
-        return Fornecedor.objects.filter(entidade=self.request.user.entidade)
+        return Fornecedor.objects.filter(entidade=self.request.user.entity)
 
     def perform_create(self, serializer):
         serializer.save(
-            entidade=self.request.user.entidade,
+            entidade=self.request.user.entity,
             transiente=False
         )
 
