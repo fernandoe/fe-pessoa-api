@@ -20,7 +20,8 @@ BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!p!(u@^s=!l#s9&j_c5!36o886(8(#8)rf$l=de1@f^z*jds1h'
+# SECRET_KEY = '!p!(u@^s=!l#s9&j_c5!36o886(8(#8)rf$l=de1@f^z*jds1h'
+SECRET_KEY = 'zo845adet$f)x-+2h=q#hy7+hzc380r*)fx#08k9s$43jo2z_x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -121,7 +122,10 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
+        # 'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     )
 }
 
@@ -134,3 +138,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'docker',
 )
+
+AUTH_USER_MODEL = 'fe_core.User'
