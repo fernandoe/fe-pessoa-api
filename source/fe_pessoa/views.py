@@ -48,7 +48,8 @@ class ClienteViewSet(viewsets.ModelViewSet):
         return queryset.filter(filtros)
 
     def get_queryset(self):
-        return Cliente.objects.filter(entidade=self.request.user.entity)
+        return Cliente.objects.all()
+        # return Cliente.objects.filter(entidade=self.request.user.entity)
 
     def perform_create(self, serializer):
         serializer.save(

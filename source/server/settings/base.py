@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
     'rest_framework',
     'corsheaders',
     'oauth2_provider',
@@ -117,10 +118,9 @@ FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     )
 }
 

@@ -1,6 +1,4 @@
 # -*- coding:utf-8 -*-
-import uuid
-
 from django.test import TestCase
 from fe_core.tests.factories import EntityFactory
 
