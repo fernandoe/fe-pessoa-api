@@ -6,8 +6,9 @@ from fe_pessoa.models import Cliente
 
 @admin.register(Cliente)
 class ClienteModelAdmin(admin.ModelAdmin):
-    search_fields = ('nome', 'cpf', 'cnpj',)
-    list_display = ('get_uuid', 'entidade', 'nome', 'telefone_celular', 'ativo')
+    search_fields = ('nome', 'cpf',)
+    list_filter = ['transiente']
+    list_display = ('get_uuid', 'entidade', 'nome', 'email', 'telefone_celular', 'ativo', 'transiente')
     ordering = ('nome',)
 
     def save_model(self, request, obj, form, change):

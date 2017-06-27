@@ -6,7 +6,7 @@ from fe_core.models import UUIDModel, Entity
 
 class Pessoa(UUIDModel):
     transiente = models.BooleanField(default=True, editable=False)
-    entidade = models.ForeignKey(Entity)
+    entidade = models.ForeignKey(Entity, null=True, blank=True)
 
     nome = models.CharField(max_length=128, null=True)  # Ou razão social
     cpf = models.CharField(max_length=14, null=True, blank=True)  # Ou CNPJ

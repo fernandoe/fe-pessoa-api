@@ -121,7 +121,9 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3,
 }
 
 OAUTH2_PROVIDER = {

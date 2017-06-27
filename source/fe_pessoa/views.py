@@ -1,22 +1,13 @@
 # -*- coding:utf-8 -*-
 from django.db.models import Q
-from rest_framework import status
-from rest_framework import viewsets
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
+from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Cliente, Fornecedor
 from .serializers import ClienteModelSerializer, FornecedorModelSerializer
-
-
-class ClienteCreateAPIView(CreateAPIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, *args, **kwargs):
-        entidade = self.request.user.entity
-        cliente = Cliente.objects.create(entidade=entidade)
-        return Response({'uuid': cliente.uuid}, status=status.HTTP_201_CREATED)
 
 
 class FornecedorCreateAPIView(CreateAPIView):
@@ -54,11 +45,16 @@ class ClienteViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(
             entidade=self.request.user.entity,
-            transiente=False
+            transiente=True
         )
 
     def perform_update(self, serializer):
         serializer.save(transiente=False)
+
+    # def post(self, request, *args, **kwargs):
+    #     entidade = self.request.user.entity
+    #     cliente = Cliente.objects.create(entidade=entidade)
+    #     return Response({'uuid': cliente.uuid}, status=status.HTTP_201_CREATED)
 
 
 class FornecedorViewSet(viewsets.ModelViewSet):
