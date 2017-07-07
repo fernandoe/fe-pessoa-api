@@ -2,11 +2,6 @@ from .base import *
 
 ALLOWED_HOSTS = ['*']
 
-AUTHENTICATION_BACKENDS = (
-    'oauth2_provider.backends.OAuth2Backend',
-    'django.contrib.auth.backends.ModelBackend'
-)
-
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'https://auth.fe.fernandoe.com/api/v1/introspect/',
     'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',
