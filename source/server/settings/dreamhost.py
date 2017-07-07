@@ -13,4 +13,4 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'
 )
 
-STATIC_ROOT = '/home/fems/auth.fe.fernandoe.com/public/static'
+STATIC_ROOT = '/home/fems/pessoa.fe.fernandoe.com/public/static'
