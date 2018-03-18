@@ -20,8 +20,7 @@ BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '!p!(u@^s=!l#s9&j_c5!36o886(8(#8)rf$l=de1@f^z*jds1h'
-SECRET_KEY = 'zo845adet$f)x-+2h=q#hy7+hzc380r*)fx#08k9s$43jo2z_x'
+SECRET_KEY = 'y5k8cj857y5-$*mxs^vkyh$)a)2v9#3l-4ueeqsrhii8^rf5$#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -116,6 +115,7 @@ FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'services.backends.MyBackend',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
