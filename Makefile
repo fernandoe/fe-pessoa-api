@@ -1,17 +1,20 @@
 docker-build:
 	docker build -t fernandoe/fe-pessoa-server:local .
 
-docker-bash:
-	docker run -it --rm fernandoe/fe-pessoa-server:local /bin/sh
+compose-bash:
+	docker-compose run --rm pessoa /bin/sh
 
 compose-build:
-	docker-compose build web
+	docker-compose build pessoa
 
 compose-up:
-	docker-compose up
+	docker-compose up pessoa
+
+compose-rm:
+	docker-compose rm
 
 compose-migrate:
-	docker-compose run --rm web python manage.py migrate
+	docker-compose run --rm pessoa python manage.py migrate
 
 compose-createsuperuser:
-	docker-compose run --rm web python manage.py createsuperuser
+	docker-compose run --rm pessoa python manage.py createsuperuser

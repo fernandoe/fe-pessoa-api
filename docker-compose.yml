@@ -2,40 +2,35 @@ version: '3'
 
 services:
 
-  mysql:
+  mysql-pessoa:
     image: mysql:5.7.21
     volumes:
       - pessoa-mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
     restart: always
-    networks:
-      - pessoa
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: fe-pessoa
 
-  web:
+  pessoa:
     build: .
     volumes:
       - ./requirements.txt:/requirements.txt
       - ./src:/app
-    links:
-      - mysql:mysql
     ports:
-      - "9000:8000"
-    networks:
-      - pessoa
+      - "9001:8000"
     environment:
-       DATABASE_URL: mysql://root:password@mysql:3306/fe-pessoa
+      DJANGO_SETTINGS_MODULE: 'server.settings.docker'
+      DATABASE_URL: 'mysql://root:password@mysql-pessoa:3306/fe-pessoa'
     depends_on:
-      - mysql
+      - mysql-pessoa
 
 volumes:
   pessoa-mysql:
 
 networks:
-  pessoa:
+  default:
+    external:
+      name: fe
 
 
 #fe_auth:
