@@ -5,4 +5,4 @@
 .idea
 fe_pessoa_server.egg-info
 source/.coverage
-source/db.sqlite3
+src/db.sqlite3

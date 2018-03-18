@@ -1,22 +1,57 @@
-fe_auth:
-  image: fernandoe/fe-auth-server:release_0.1.0
-  environment:
-   - DJANGO_SETTINGS_MODULE=server.settings.docker
-  volumes:
-    - ~/.docker-volumes/fe_auth/database:/database
-  ports:
-    - 7000:8000
+version: '3'
 
-fe_pessoa:
-  dockerfile: Dockerfile
-  build: .
-  environment:
-   - DJANGO_SETTINGS_MODULE=server.settings.docker
-  links:
-    - fe_auth
-  volumes:
-    - ./requirements:/requirements
-    - ./source:/app
-    - ~/.docker-volumes/fe_auth/database:/database
-  ports:
-    - 7001:8000
+services:
+
+  mysql-pessoa:
+    image: mysql:5.7.21
+    volumes:
+      - pessoa-mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: fe-pessoa
+
+  pessoa:
+    build: .
+    volumes:
+      - ./requirements.txt:/requirements.txt
+      - ./src:/app
+    ports:
+      - "9001:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: 'server.settings.docker'
+      DATABASE_URL: 'mysql://root:password@mysql-pessoa:3306/fe-pessoa'
+    depends_on:
+      - mysql-pessoa
+
+volumes:
+  pessoa-mysql:
+
+networks:
+  default:
+    external:
+      name: fe
+
+
+#fe_auth:
+#  image: fernandoe/fe-auth-server:release_0.1.0
+#  environment:
+#   - DJANGO_SETTINGS_MODULE=server.settings.docker
+#  volumes:
+#    - ~/.docker-volumes/fe_auth/database:/database
+#  ports:
+#    - 7000:8000
+#
+#fe_pessoa:
+#  dockerfile: Dockerfile
+#  build: .
+#  environment:
+#   - DJANGO_SETTINGS_MODULE=server.settings.docker
+#  links:
+#    - fe_auth
+#  volumes:
+#    - ./requirements:/requirements
+#    - ./source:/app
+#    - ~/.docker-volumes/fe_auth/database:/database
+#  ports:
+#    - 7001:8000
