@@ -10,6 +10,9 @@ compose-build:
 compose-up:
 	docker-compose up pessoa
 
+compose-stop:
+	docker-compose stop
+
 compose-rm:
 	docker-compose rm
 

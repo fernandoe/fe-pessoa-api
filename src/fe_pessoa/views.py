@@ -24,17 +24,17 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
     def filter_queryset(self, queryset):
         filtros = Q()
-        if self.action == 'retrieve':
-            pass
-        elif self.action != 'update':
-            filtros = filtros & Q(transiente=False)
-        if self.action == 'list':
-            uuids = self.request.query_params.get('uuids', None)
-            if uuids:
-                filtros = filtros & Q(uuid__in=uuids.split(','))
-            query = self.request.query_params.get('query', None)
-            if query:
-                filtros = filtros & Q(nome__icontains=query) | Q(nome_fantasia__icontains=query)
+        # if self.action == 'retrieve':
+        #     pass
+        # elif self.action != 'update':
+        #     filtros = filtros & Q(transiente=False)
+        # if self.action == 'list':
+        #     uuids = self.request.query_params.get('uuids', None)
+        #     if uuids:
+        #         filtros = filtros & Q(uuid__in=uuids.split(','))
+        #     query = self.request.query_params.get('query', None)
+        #     if query:
+        #         filtros = filtros & Q(nome__icontains=query) | Q(nome_fantasia__icontains=query)
         return queryset.filter(filtros)
 
     def get_queryset(self):
