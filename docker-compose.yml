@@ -25,15 +25,14 @@ services:
     ports:
       - "9000:8000"
     networks:
-      - ortopedica
+      - pessoa
     environment:
-       DATABASE_URL: mysql://root:password@mysql:3306/fe-conta
+       DATABASE_URL: mysql://root:password@mysql:3306/fe-pessoa
     depends_on:
       - mysql
 
 volumes:
-  ortopedica-mysql:
-  ortopedica-python:
+  pessoa-mysql:
 
 networks:
   pessoa:
