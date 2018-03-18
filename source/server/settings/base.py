@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'corsheaders',
-    'oauth2_provider',
 
     'fe_core',
     'fe_pessoa',
@@ -118,7 +117,6 @@ FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.authentication.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
@@ -126,11 +124,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 3,
 }
 
-OAUTH2_PROVIDER = {
-    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
-    'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',
-    'OAUTH2_VALIDATOR_CLASS': 'fe_core.services.auth.oauth2_validators.FEOAuth2Validator'
-}
+# OAUTH2_PROVIDER = {
+#     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
+#     'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',
+#     'OAUTH2_VALIDATOR_CLASS': 'fe_core.services.auth.oauth2_validators.FEOAuth2Validator'
+# }
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (

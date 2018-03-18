@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 from django.db.models import Q
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
 from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
