@@ -1,0 +1,8 @@
+*.pyc
+.cache
+.coverage
+.eggs
+.idea
+fe_pessoa_server.egg-info
+source/.coverage
+source/db.sqlite3

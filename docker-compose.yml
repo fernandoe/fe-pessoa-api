@@ -1,0 +1,22 @@
+fe_auth:
+  image: fernandoe/fe-auth-server:release_0.1.0
+  environment:
+   - DJANGO_SETTINGS_MODULE=server.settings.docker
+  volumes:
+    - ~/.docker-volumes/fe_auth/database:/database
+  ports:
+    - 7000:8000
+
+fe_pessoa:
+  dockerfile: Dockerfile
+  build: .
+  environment:
+   - DJANGO_SETTINGS_MODULE=server.settings.docker
+  links:
+    - fe_auth
+  volumes:
+    - ./requirements:/requirements
+    - ./source:/app
+    - ~/.docker-volumes/fe_auth/database:/database
+  ports:
+    - 7001:8000
