@@ -22,7 +22,7 @@ class MyBackend(BaseAuthentication):
 
             try:
                 token = auth[1].decode()
-                response = requests.post('http://conta:9000/verify/', data={
+                response = requests.post('http://conta:8000/verify/', data={
                     'token': token
                 })
                 if response.status_code == 400:
