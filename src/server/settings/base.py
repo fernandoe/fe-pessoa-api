@@ -113,16 +113,6 @@ AUTH_USER_MODEL = 'fe_core.User'
 
 FE_AUTH_SERVER = "http://%s:8000" % os.environ.get('FE_AUTH_PORT_8000_TCP_ADDR')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'services.backends.MyBackend',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 3,
-}
-
 # OAUTH2_PROVIDER = {
 #     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:7000/api/v1/introspect/',
 #     'RESOURCE_SERVER_AUTH_TOKEN': 'fe-pessoa-server',

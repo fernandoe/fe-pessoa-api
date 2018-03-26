@@ -1,40 +1,58 @@
-# -*- coding:utf-8 -*-
-import uuid
-
 import factory
-from fe_core.tests.factories import EntityFactory
-
-from fe_pessoa.models import Cliente, Fornecedor
+from django.contrib.auth import get_user_model
 
 
-class FornecedorFactory(factory.django.DjangoModelFactory):
-    uuid = factory.Sequence(lambda n: uuid.uuid4())
-    nome = factory.Faker('name', locale='pt_BR')
-    email = factory.Faker('email', locale='pt_BR')
-    entidade = factory.SubFactory(EntityFactory)
-    transiente = False
-
-    class Meta:
-        model = Fornecedor
+User = get_user_model()
 
 
-class ClienteFactory(factory.django.DjangoModelFactory):
-    uuid = factory.Sequence(lambda n: uuid.uuid4())
-    nome = factory.Faker('name', locale='pt_BR')
-    email = factory.Faker('email', locale='pt_BR')
-    entidade = factory.SubFactory(EntityFactory)
-    transiente = False
+class UserFactory(factory.django.DjangoModelFactory):
+    # entity = factory.SubFactory(EntityFactory)
+    email = factory.Sequence(lambda n: u'{0}@test.com'.format(n))
+    is_staff = False
+    is_active = True
 
     class Meta:
-        model = Cliente
+        model = User
 
+    @classmethod
+    def _prepare(cls, create, **kwargs):
+        password = kwargs.pop('password', None)
+        user = super(UserFactory, cls)._prepare(create, **kwargs)
+        if password:
+            user.set_password(password)
+            if create:
+                user.save()
+        return user
 
-class ClienteFernandoFactory(factory.django.DjangoModelFactory):
-    uuid = factory.Sequence(lambda n: uuid.uuid4())
-    nome = 'Fernando Espíndola'
-    email = 'fer.esp@gmail.com'
-    entidade = factory.Sequence(lambda n: uuid.uuid4())
-    transiente = False
-
-    class Meta:
-        model = Cliente
+#
+# class FornecedorFactory(factory.django.DjangoModelFactory):
+#     uuid = factory.Sequence(lambda n: uuid.uuid4())
+#     nome = factory.Faker('name', locale='pt_BR')
+#     email = factory.Faker('email', locale='pt_BR')
+#     entidade = factory.SubFactory(EntityFactory)
+#     transiente = False
+#
+#     class Meta:
+#         model = Fornecedor
+#
+#
+# class ClienteFactory(factory.django.DjangoModelFactory):
+#     uuid = factory.Sequence(lambda n: uuid.uuid4())
+#     nome = factory.Faker('name', locale='pt_BR')
+#     email = factory.Faker('email', locale='pt_BR')
+#     entidade = factory.SubFactory(EntityFactory)
+#     transiente = False
+#
+#     class Meta:
+#         model = Cliente
+#
+#
+# class ClienteFernandoFactory(factory.django.DjangoModelFactory):
+#     uuid = factory.Sequence(lambda n: uuid.uuid4())
+#     nome = 'Fernando Espíndola'
+#     email = 'fer.esp@gmail.com'
+#     entidade = factory.Sequence(lambda n: uuid.uuid4())
+#     transiente = False
+#
+#     class Meta:
+#         model = Cliente
