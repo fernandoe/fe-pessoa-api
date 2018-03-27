@@ -14,5 +14,5 @@ class ClienteModelSerializer(serializers.ModelSerializer):
 class FornecedorModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fornecedor
-        fields = ('uuid', 'created_at', 'updated_at', 'nome', 'telefone_celular', 'endereco')
+        fields = ('uuid', 'created_at', 'updated_at', 'nome', 'email', 'telefone_celular', 'endereco')
         read_only_fields = ('uuid', 'created_at', 'updated_at')
