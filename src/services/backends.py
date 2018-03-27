@@ -1,5 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
+from fe_core.models import Entity
 from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
 from rest_framework_jwt.settings import api_settings
@@ -28,14 +29,26 @@ class FEMicroservicesBackend(BaseAuthentication):
                 if response.status_code == 400:
                     print(response.content)
                     raise exceptions.AuthenticationFailed('Invalid credentials')
+                elif response.status_code == 404:
+                    print(response.content)
+                    raise exceptions.AuthenticationFailed('Conta service not found')
 
                 info = jwt_decode_handler(token)
                 try:
                     user = User.objects.get(pk=info['user_id'])
                 except User.DoesNotExist:
+                    entity = None
+                    if 'entity' in info:
+                        try:
+                            entity = Entity.objects.get(pk=info['entity'])
+                        except Entity.DoesNotExist:
+                            entity = Entity.objects.create(
+                                pk=info['entity']
+                            )
                     user = User.objects.create(
                         pk=info['user_id'],
-                        email=info['email']
+                        email=info['email'],
+                        entity=entity
                     )
                 return user, token
             except UnicodeError:
