@@ -59,13 +59,6 @@ class FEMicroservicesBackendTesting(BaseAuthentication):
 
             try:
                 token = auth[1].decode()
-                response = requests.post('http://conta:8000/verify/', data={
-                    'token': token
-                })
-                if response.status_code == 400:
-                    print(response.content)
-                    raise exceptions.AuthenticationFailed('Invalid credentials')
-
                 info = jwt_decode_handler(token)
                 try:
                     user = User.objects.get(pk=info['user_id'])

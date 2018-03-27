@@ -18,42 +18,45 @@ class FornecedorCreateAPIView(CreateAPIView):
         return Response({'uuid': fornecedor.uuid}, status=status.HTTP_201_CREATED)
 
 
+class ClienteCreateAPIView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        entidade = self.request.user.entity
+        cliente = Cliente.objects.create(entidade=entidade)
+        return Response({'uuid': cliente.uuid}, status=status.HTTP_201_CREATED)
+
+
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteModelSerializer
     permission_classes = (IsAuthenticated,)
 
     def filter_queryset(self, queryset):
         filtros = Q()
-        # if self.action == 'retrieve':
-        #     pass
-        # elif self.action != 'update':
-        #     filtros = filtros & Q(transiente=False)
-        # if self.action == 'list':
-        #     uuids = self.request.query_params.get('uuids', None)
-        #     if uuids:
-        #         filtros = filtros & Q(uuid__in=uuids.split(','))
-        #     query = self.request.query_params.get('query', None)
-        #     if query:
-        #         filtros = filtros & Q(nome__icontains=query) | Q(nome_fantasia__icontains=query)
+        if self.action == 'retrieve':
+            pass
+        elif self.action != 'update':
+            filtros = filtros & Q(transiente=False)
+        if self.action == 'list':
+            uuids = self.request.query_params.get('uuids', None)
+            if uuids:
+                filtros = filtros & Q(uuid__in=uuids.split(','))
+            query = self.request.query_params.get('query', None)
+            if query:
+                filtros = filtros & Q(nome__icontains=query) | Q(nome_fantasia__icontains=query)
         return queryset.filter(filtros)
 
     def get_queryset(self):
-        return Cliente.objects.all()
-        # return Cliente.objects.filter(entidade=self.request.user.entity)
+        return Cliente.objects.filter(entidade=self.request.user.entity)
 
     def perform_create(self, serializer):
         serializer.save(
             entidade=self.request.user.entity,
-            transiente=True
+            transiente=False
         )
 
     def perform_update(self, serializer):
         serializer.save(transiente=False)
-
-    # def post(self, request, *args, **kwargs):
-    #     entidade = self.request.user.entity
-    #     cliente = Cliente.objects.create(entidade=entidade)
-    #     return Response({'uuid': cliente.uuid}, status=status.HTTP_201_CREATED)
 
 
 class FornecedorViewSet(viewsets.ModelViewSet):

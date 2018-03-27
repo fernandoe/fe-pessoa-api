@@ -1,9 +1,7 @@
-# -*- coding:utf-8 -*-
 from django.test import TestCase
-from fe_core.tests.factories import EntityFactory
 
 from fe_pessoa.models import Cliente
-from fe_pessoa.tests.factories import ClienteFactory
+from fe_pessoa.tests.factories import ClienteFactory, EntityFactory
 
 
 class TestCliente(TestCase):
