@@ -1,3 +1,5 @@
+import os
+
 import requests
 from django.contrib.auth import get_user_model
 from fe_core.models import Entity
@@ -7,6 +9,9 @@ from rest_framework_jwt.settings import api_settings
 
 jwt_decode_handler = api_settings.JWT_DECODE_HANDLER
 User = get_user_model()
+
+host = os.environ.get('CONTA_SERVICE_HOST', 'conta')
+port = os.environ.get('CONTA_SERVICE_PORT', '8000')
 
 
 class FEMicroservicesBackend(BaseAuthentication):
@@ -23,9 +28,12 @@ class FEMicroservicesBackend(BaseAuthentication):
 
             try:
                 token = auth[1].decode()
-                response = requests.post('http://conta:8000/verify/', data={
+
+                url = 'http://{HOST}:{PORT}/verify/'.format(HOST=host, PORT=port)
+                response = requests.post(url, data={
                     'token': token
                 })
+
                 if response.status_code == 400:
                     print(response.content)
                     raise exceptions.AuthenticationFailed('Invalid credentials')
