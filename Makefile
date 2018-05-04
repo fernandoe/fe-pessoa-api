@@ -21,3 +21,6 @@ compose-migrate:
 
 compose-createsuperuser:
 	docker-compose run --rm pessoa python manage.py createsuperuser
+
+travis.test:
+	true
