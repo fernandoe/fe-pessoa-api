@@ -6,4 +6,4 @@
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 
-./kubectl set image deployment/fe-pessoa fe-task=${TRAVIS_REPO_SLUG}:${TRAVIS_TAG} --namespace ms
+./kubectl set image deployment/fe-pessoa fe-pessoa=${TRAVIS_REPO_SLUG}:${TRAVIS_TAG} --namespace ms

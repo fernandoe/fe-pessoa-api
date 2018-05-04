@@ -35,4 +35,5 @@ deploy:
   on:
     tags: true
     branch:
+    - master
     - "/(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$/"
