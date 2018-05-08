@@ -3,6 +3,7 @@
 .coverage
 .eggs
 .idea
+.pytest_cache
 fe_pessoa_server.egg-info
 source/.coverage
 src/db.sqlite3
