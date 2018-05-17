@@ -1,5 +1,8 @@
-docker-build:
-	docker build -t fernandoe/fe-pessoa-server:local .
+TRAVIS_REPO_SLUG ?= fernandoe/fe-pessoa-server
+TAG ?= local
+
+build:
+	docker build -t '${TRAVIS_REPO_SLUG}:${TAG}' .
 
 test:
 	cd src; pytest
