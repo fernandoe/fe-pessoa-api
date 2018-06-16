@@ -7,7 +7,7 @@ build:
 test:
 	cd src; pytest
 
-travis.test:
+ci.test:
 	docker run --rm -it '${TRAVIS_REPO_SLUG}:${TAG}' pytest -s
 
 pip.freeze:

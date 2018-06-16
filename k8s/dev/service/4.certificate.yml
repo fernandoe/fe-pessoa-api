@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: pessoa-api-dev-fernandoe-com
+spec:
+  secretName: pessoa-api-dev-fernandoe-com-tls
+  issuerRef:
+    name: issuer-letsencrypt
+  commonName: pessoa-api.dev.fernandoe.com
+  dnsNames:
+    - pessoa-api.dev.fernandoe.com
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - pessoa-api.dev.fernandoe.com
