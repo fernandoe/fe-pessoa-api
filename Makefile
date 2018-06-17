@@ -1,23 +1,14 @@
-docker-build:
-	docker build -t fernandoe/fe-pessoa-server:local .
+TRAVIS_REPO_SLUG ?= fernandoe/fe-pessoa-server
+TAG ?= local
 
-compose-bash:
-	docker-compose run --rm pessoa /bin/sh
+build:
+	docker build -t '${TRAVIS_REPO_SLUG}:${TAG}' .
 
-compose-build:
-	docker-compose build pessoa
+test:
+	cd src; pytest
 
-compose-up:
-	docker-compose up pessoa
+ci.test:
+	docker run --rm -it '${TRAVIS_REPO_SLUG}:${TAG}' pytest -s
 
-compose-stop:
-	docker-compose stop
-
-compose-rm:
-	docker-compose rm
-
-compose-migrate:
-	docker-compose run --rm pessoa python manage.py migrate
-
-compose-createsuperuser:
-	docker-compose run --rm pessoa python manage.py createsuperuser
+pip.freeze:
+	pip freeze -r requirements.txt
