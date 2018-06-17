@@ -16,17 +16,17 @@ env:
   - secure: LpjBUJQnpyBslU2xpZcPJQ4nZ4LFb2szWnpX7+Fc9+tvj8W6iZwP3j85fDDJR0BkDLW2ZuSZ/fNoIVqbIZYg2KmGOBttl/L+fdFKZyzvcYjJ0CrLSTtCeevyfKgX0zPONWBtTAQGKkz/ZmndgRaw6W2INzx5LUNE90z8LPXeRwUFGucONG84zGqdcdXaBQxzfw5cVk6Bckkeg+caIEDsW7je2YWgXuuPNSVoVCfC+mEVLMQN3TafREY0Xgn2eT1es4VGOCsrD6dJZ5qISh2qbHzCBRqsajjGxVacwkZqY/PC4hBs7eygXkk2r3mRXvoINSue6o58epGnr7xXfZUT7SUlyYagefi1gIpYSbYgHjL5DiMmSbPlGqPsSbsNVyjYzR+BNA8M7enDGbgQe//+7E8YZv+UnSvKbuhlQEn6LRA4UxTzB9ttyZl45j2WLx6kjj2mjgZ0iEmHliK0kgDxG7qMZkPdc0ZJT8JBbPzjO4X53ZZnLU/Gaewo5Jq+P1qXuBQ0gH7JDB9hl6FK/dDzDgWKtXC4I9jqOgzP+DrVYqHHZIDJ0HAYSVwPia1oR2tQI0Np1FU8HLwbs59yxLHja7BB/w4zohc3uqN2DanN6cx4a8aZah9Kl5fbwXmVhXpo0czaANvO8rLnOezAYQMqniyYAOmE/PViqr7tCwNuz6o=
 
 before_install:
-- echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
+  - echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
 
 install:
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-- docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG .
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG .
 
 script:
-- make travis.test
+  - make ci.test
 
 after_success:
-- docker push $TRAVIS_REPO_SLUG
+  - docker push $TRAVIS_REPO_SLUG
 
 deploy:
   # deploy releases branch to their own namespaces
@@ -34,7 +34,6 @@ deploy:
     script: ./scripts/k8s-deploy.sh
     on:
       all_branches: true
-#      branch: release-0.0.2
   # deploy master to production
   - provider: script
     script: ./scripts/deploy.sh
