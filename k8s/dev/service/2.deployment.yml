@@ -1,14 +1,14 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: pessoa-api
+  name: api-pessoa
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: pessoa-api
-        service: pessoa-api
+        app: api-pessoa
+        service: api-pessoa
     spec:
       initContainers:
       - name: check-db-ready
@@ -24,7 +24,7 @@ spec:
           - name: DATABASE_URL
             value: mysql://root:password@mysql:3306/pessoa
       containers:
-      - name: pessoa-api
+      - name: api-pessoa
         image: fernandoe/fe-pessoa-api:0.0.1
         imagePullPolicy: Always
         ports:
