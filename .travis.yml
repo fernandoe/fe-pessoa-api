@@ -34,7 +34,7 @@ deploy:
     script: ./scripts/k8s-deploy-development.sh
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^release-\d\.\d\.\d$
+      condition: "$TRAVIS_TAG =~ ^release.*$"
   # deploy master to production
   - provider: script
     script: ./scripts/k8s-deploy-production.sh
