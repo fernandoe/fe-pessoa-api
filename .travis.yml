@@ -31,7 +31,10 @@ after_success:
 deploy:
   # deploy releases branch to their own namespaces
   - provider: script
-    script: 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/k8s-deploy-development.sh; fi'
+    script: ./scripts/k8s-deploy-development.sh
+    on:
+      branch:
+        - /^release-\d\.\d\.\d$/
 
   # deploy master to production
   - provider: script
