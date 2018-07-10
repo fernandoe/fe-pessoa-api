@@ -4,6 +4,7 @@
 ## 0.0.2-DEV [2018-07-09]
 
 - Normalize scripts with the projects defaults
+- Add django-fe-version service
 
 
 
