@@ -31,12 +31,12 @@ after_success:
 deploy:
   # deploy releases branch to their own namespaces
   - provider: script
-    script: ./scripts/k8s-deploy.sh
+    script: ./scripts/k8s-deploy-development.sh
     on:
-#      all_branches: true
-      branch: release-0.0.1
+      all_branches: true
+      condition: ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^release.*$
   # deploy master to production
   - provider: script
     script: ./scripts/k8s-deploy-production.sh
     on:
-      branch: master
+      tags: true
