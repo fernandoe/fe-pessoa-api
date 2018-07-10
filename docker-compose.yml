@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  mysql-api-conta:
+    image: mysql:5.7.21
+    volumes:
+      - data-mysql-api-conta:/var/lib/mysql
+      - ./sandbox/docker-compose/mysql-init/api-conta:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: conta
+
+  mysql-api-pessoa:
+    image: mysql:5.7.21
+    volumes:
+      - data-mysql-api-pessoa:/var/lib/mysql
+      - ./sandbox/docker-compose/mysql-init/api-pessoa:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: pessoa
+
+  api-conta:
+    image: fernandoe/fe-conta-api:0.0.2
+    ports:
+      - "9000:8000"
+    depends_on:
+      - mysql-api-conta
+    environment:
+      DJANGO_SETTINGS_MODULE: 'server.settings.docker'
+      DATABASE_URL: mysql://root:password@mysql-api-conta:3306/conta
+      VERSION: 0.0.2
+
+  api-pessoa:
+    build: .
+    ports:
+      - "9001:8000"
+    volumes:
+      - ./src:/app
+    depends_on:
+      - mysql-api-pessoa
+    environment:
+      DJANGO_SETTINGS_MODULE: 'server.settings.docker'
+      DATABASE_URL: mysql://root:password@mysql-api-pessoa:3306/pessoa
+      VERSION: 0.0.2
+    stdin_open: true
+    tty: true
+
+volumes:
+  data-mysql-api-conta:
+  data-mysql-api-pessoa:

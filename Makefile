@@ -12,3 +12,7 @@ ci.test:
 
 pip.freeze:
 	pip freeze -r requirements.txt
+
+compose-migrate:
+	docker-compose exec api-conta python manage.py migrate
+	docker-compose exec api-pessoa python manage.py migrate

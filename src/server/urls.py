@@ -9,9 +9,9 @@ router.register(r'clientes', ClienteViewSet, base_name="clientes")
 router.register(r'fornecedores', FornecedorViewSet, base_name="fornecedores")
 
 urlpatterns = [
-    path(r'^admin/', admin.site.urls),
-    path(r'^api/v1/fornecedores/novo', FornecedorCreateAPIView.as_view(), name='fornecedores-novo'),
-    path(r'^api/v1/clientes/novo', ClienteCreateAPIView.as_view(), name='clientes-novo'),
-    path(r'^api/v1/', include(router.urls)),
+    path(r'admin/', admin.site.urls),
+    path(r'api/v1/fornecedores/novo', FornecedorCreateAPIView.as_view(), name='fornecedores-novo'),
+    path(r'api/v1/clientes/novo', ClienteCreateAPIView.as_view(), name='clientes-novo'),
+    path(r'api/v1/', include(router.urls)),
     path('version', include('fe_version.urls')),
 ]
