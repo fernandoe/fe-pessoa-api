@@ -2,8 +2,7 @@ TRAVIS_REPO_SLUG ?= fernandoe/fe-pessoa-api
 TAG ?= local
 
 build:
-#	docker build -t '${TRAVIS_REPO_SLUG}:${TAG}' .
-	docker build --build-arg https_proxy=http://15.85.195.199:8088 -t '${TRAVIS_REPO_SLUG}:${TAG}' .
+	docker build -t '${TRAVIS_REPO_SLUG}:${TAG}' .
 
 test:
 	cd src; pytest
