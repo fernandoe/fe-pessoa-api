@@ -17,14 +17,12 @@ after_success:
   - docker push $TRAVIS_REPO_SLUG
 
 deploy:
-  # deploy releases branch to their own namespaces
   - provider: script
     script: ./scripts/k8s-deploy-development.sh
     on:
       all_branches: true
-      condition: ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^release.*$
-  # deploy master to production
   - provider: script
     script: ./scripts/k8s-deploy-production.sh
     on:
-      tags: true
+      all_branches: true
+      condition: ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^release-.*$
